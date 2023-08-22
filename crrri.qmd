@@ -1,0 +1,138 @@
+---
+title: "crrri"
+format: html
+---
+
+working from [here](https://github.com/RLesur/crrri)
+see also <https://cderv.gitlab.io/user2019-crrri>
+
+```{r}
+library(tidyverse)
+library(crrri)
+```
+
+```{r}
+brave <- "/usr/bin/brave-browser"
+Sys.setenv(HEADLESS_CHROME = brave)
+chrome <- Chrome$new()
+```
+
+```{r}
+client <- chrome$connect(callback = function(client) {
+  client$inspect()
+})
+```
+
+```{r}
+Page <- client$Page
+Page$navigate(url = "http://r-project.org")
+```
+
+```{r}
+Page$navigate(url = "https://ropensci.org/", callback = function(result) {
+  cat("The R session has received this result from Chrome!\n")
+  print(result)
+})
+```
+
+```{r}
+chrome$close()
+```
+
+```{r}
+chrome <- Chrome$new(bin = brave, debug_port = 9555)
+client <- chrome$connect(~ .x$inspect())
+```
+
+```{r}
+client
+```
+
+```{r}
+Runtime <- client$Runtime
+print(Runtime)
+```
+
+this doesn't work yet: the function defines, but how do I call it with my client?
+
+```{r}
+library(promises)
+library(jsonlite)
+
+perform_with_chrome(function(client) {
+  Page <- client$Page
+
+  Page$enable() %...>% { # await enablement of the Page domain
+    Page$navigate(url = "https://www.r-project.org/") 
+    Page$loadEventFired() # await the load event
+  } %...>% {
+    Page$printToPDF() 
+  } %...>% { # await PDF reception
+    .$data %>% base64_dec() %>% writeBin("r_project.pdf") 
+  }
+}, debug_port = 9333, bin = brave)
+```
+
+or is this a function factory?
+
+```{r}
+save_url_as_pdf <- function(url) {
+  function(client) {
+    Page <- client$Page
+
+    Page$enable() %...>% {
+      Page$navigate(url = url)
+      Page$loadEventFired()
+    } %...>% {
+      Page$printToPDF()
+    } %...>% {
+      .$data %>%
+        jsonlite::base64_dec() %>%
+        writeBin(paste0(httr::parse_url(url)$hostname, ".pdf"))
+    }
+  }
+}
+```
+
+```{r}
+save_url_as_pdf("https://www.livescores.com/")
+```
+
+```{r}
+# Build an aynchronous flow - the puppet
+library(crrri)
+dump_DOM <- function(client) {
+  fname <- str_c("888_", now(), ".html")
+  Page <- client$Page
+  Runtime <- client$Runtime
+  Page$enable() %...>% {
+    Page$navigate(
+      url = 'https://www.888scoreonline.net/'
+    )} %...>% {
+      Page$loadEventFired()
+    } %>% wait(3) %...>% {
+       Runtime$evaluate(
+        expression = 'document.documentElement.outerHTML'
+      )
+    } %...>% {
+      writeLines(.$result$value, fname)
+    }
+}
+# and execute it using chrome - be the puppet master
+
+
+```
+
+```{r}
+Page$navigate(url = "https://www.888scoreonline.net/", callback = function(result) {
+  cat("The R session has received this result from Chrome!\n")
+  print(result)
+})
+```
+
+this works
+
+```{r}
+perform_with_chrome(dump_DOM, debug_port = 9333)
+```
+

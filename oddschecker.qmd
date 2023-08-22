@@ -1,0 +1,65 @@
+---
+title: "oddschecker"
+format: html
+---
+
+```{r}
+library(tidyverse)
+library(crrri)
+brave <- "/usr/bin/brave-browser"
+Sys.setenv(HEADLESS_CHROME = brave)
+# chrome <- Chrome$new()
+# chrome <- Chrome$new()
+```
+
+
+
+
+```{r}
+dump_DOM <- function(url, file = "") {
+  perform_with_chrome(function(client) {
+    Network <- client$Network
+    Page <- client$Page
+    Runtime <- client$Runtime
+    Network$enable() %...>% { 
+      Page$enable()
+    } %...>% {
+      Network$setCacheDisabled(cacheDisabled = TRUE)
+    } %...>% {
+      Page$navigate(url = url)
+    } %...>% {
+      Page$loadEventFired()
+    } %...>% {
+      Runtime$evaluate(
+        expression = 'document.documentElement.outerHTML'
+      )
+    } %...>% (function(result) {
+      html <- result$result$value
+      cat(html, "\n", file = file)
+    }) 
+  })
+}
+# and execute it using chrome - be the puppet master
+```
+
+
+```{r}
+dump_DOM(url = "https://www.888scoreonline.net/", file = "888z.html")
+```
+
+
+
+```{r}
+chrome$close()
+```
+
+
+rvest it
+
+```{r}
+library(rvest)
+fname <- "888y.html"
+read_html(fname)
+```
+
+see 888.qmd
