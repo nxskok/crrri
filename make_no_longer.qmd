@@ -1,0 +1,25 @@
+---
+title: "no"
+format: html
+---
+
+reread no.csv and add a column for leagues which are yes, that matches the world-football filename somehow
+
+```{r}
+library(tidyverse)
+```
+
+```{r}
+no_orig <- read_csv("no.csv")
+no_orig
+```data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABIAAAASCAYAAABWzo5XAAAAbElEQVR4Xs2RQQrAMAgEfZgf7W9LAguybljJpR3wEse5JOL3ZObDb4x1loDhHbBOFU6i2Ddnw2KNiXcdAXygJlwE8OFVBHDgKrLgSInN4WMe9iXiqIVsTMjH7z/GhNTEibOxQswcYIWYOR/zAjBJfiXh3jZ6AAAAAElFTkSuQmCC
+
+rename col and add new one
+
+```{r}
+no_orig %>% 
+  rename(league = not_these) %>% 
+  mutate(info = "no") %>% 
+  write_csv("no-longer.csv")
+```
+

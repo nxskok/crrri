@@ -1,0 +1,25 @@
+---
+title: "delete old"
+format: html
+---
+
+```{r}
+library(tidyverse)
+```
+
+
+## delete the old html files that I don't need any more
+
+```{r}
+days_to_keep <- 7
+list.files(path = "888", pattern = "*.html", full.names = TRUE) %>% 
+  enframe() %>% 
+  mutate(mtime = file.mtime(value)) %>% 
+  mutate(days_old = (now() - mtime) / ddays(1)) -> d
+ggplot(d, aes(x = days_old)) + geom_histogram(bins = 12)
+d %>%
+  filter(days_old > days_to_keep) %>% 
+  pull(value) %>% 
+  unlink()
+```
+

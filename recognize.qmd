@@ -1,0 +1,87 @@
+---
+title: "recognize"
+format: html
+---
+
+packages
+
+```{r}
+library(tidyverse)
+library(rvest)
+library(stringdist)
+```
+
+get the latest 888 file
+
+```{r}
+no <- read_csv("no-longer.csv")
+
+html_tab <- function(url, mtime) {
+  time_str <- sprintf("%02d:%02d:%02.0f", hour(mtime), minute(mtime), second(mtime))
+  # time_str <- glue::glue("{hour(mtime)}:{minute(mtime)}:{round(second(mtime))}")
+  my_html <- read_html(url)
+  my_html %>% html_table() %>% pluck(1) %>%
+    filter(!str_detect(X1, "/")) %>%
+    filter(str_detect(X2, ":")) %>%
+    rename(league = X1, ko = X2, status = X3, t1 = X4, score = X5, t2 = X6) %>%
+    mutate(time = time_str) %>%
+    select(time, league:t2)
+}
+
+best_match <- function(x, lookup) {
+  stringsimmatrix(x, lookup, method = "lcs") %>%
+    apply(1, which.max) -> perm
+  lookup[perm]
+}
+
+```
+
+```{r}
+enframe(list.files(path = "888", pattern = "888_.*.html", full.names = TRUE)) %>%
+  mutate(mtime = file.mtime(value)) %>% 
+  slice_max(mtime) %>% pull(value) -> last_html
+last_html
+```
+
+```{r}
+html_tab(last_html, now()) %>% left_join(no) %>% 
+  filter(info != "no") %>% 
+  mutate(key = str_c(t1, " - ", t2)) -> latest
+latest
+```
+
+predictions
+
+```{r}
+my_url <- "~/Documents/r-projects/world-football/predictions.rds"
+predictions <- read_rds(my_url)
+predictions %>% 
+  filter(ko <= now() + hours(3)) %>% 
+  mutate(key = str_c(t1, " - ", t2)) -> predictions2
+predictions2
+```
+
+this will eventually need to be the other way around:
+
+```{r}
+latest %>% 
+  rowwise() %>% 
+  mutate(bm = best_match(key, predictions2$key)) %>% 
+  left_join(predictions2, join_by(bm == key)) %>% 
+  select(fname, 
+         ko = ko.y,
+         t1 = t1.y,
+         r1,
+         r2,
+         t2 = t2.y,
+         `2`, `1`, `0`, s1, s2,
+         status,
+         score) %>% 
+  View()
+```
+
+
+```{r}
+best_match(latest$key, predictions2$key)
+```
+

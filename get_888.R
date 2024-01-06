@@ -31,9 +31,16 @@ dump_DOM <- function(url, file = "") {
 
 while (TRUE) {
   fname <- tempfile(pattern = "888_", tmpdir = "./888/", fileext = ".html")
-  dump_DOM(url = "https://www.888scoreonline.net/", file = fname)
+  safe_dump <- safely(dump_DOM)
+  ans <- safe_dump(url = "https://www.888scoreonline.net/", file = fname)
   print(now())
-  Sys.sleep(3 * 60) # this many minutes
+  if (!is.null(ans$error)) {
+    print(ans$error)
+    Sys.sleep(1 * 60) # this many minutes
+  } else {
+    print("successful")
+    Sys.sleep(3 * 60) # this many minutes
+  }
 }
 
 
