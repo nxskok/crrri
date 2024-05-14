@@ -677,7 +677,7 @@ THA L3W ,no
 UKR D1 ,ukr_premyer-liga
 ENG CN  ,eng_national-league-north
 ENG CS  ,eng_national-league-south
-ENG Conf ,eng_national-leaguea
+ENG Conf ,eng_national-league
 GRE D1 ,gre_super-league
 ITA C1A,ita_serie-c-girone-a
 NIR D1 ,nir_premier-league
@@ -863,7 +863,7 @@ AZE CUP,no
 IND D2 ,no
 Ghana FA C,no
 PUR L ,no
-LUX D1 ,lux_national-division
+LUX D1 ,lux_nationaldivision
 KOR D2off,no
 EST D2off,no
 GUA D1QF,no
@@ -949,3 +949,430 @@ MPRE Cup ,no
 REWT ,no
 REYT  ,no
 BRA CNF,no
+VIE U19  ,no
+EGY LC ,no
+Por U23RF ,no
+AFC  ,no
+INDSC  ,no
+MEX D2(a),no
+IRD MSC ,no
+ENG YFAC,no
+HY Cup ,no
+TIP CUP ,no
+ICE LC  ,no
+BRA DF ,no
+BRA SE,no
+BRA PE   ,no
+CAF NC ,afr_nations-cup
+Bra Pia ,no
+Honduras C,no
+SLV D1(a) ,no
+And Cup ,no
+SPA SUC  ,no
+BRA CBD ,no
+Por U23CG ,no
+AVSL1  ,no
+SSCW  ,no
+BRA PB ,no
+BRA CGD ,no
+BRA RJTG,no
+Bra PL,no
+Cos Cup ,no
+CYP D2PPO,no
+ITA SC ,no
+BRA CCX ,no
+LIV WL,no
+BRA CA ,no
+BRA LNA ,no
+GUA D1(a),no
+BRA PA  ,no
+CYP D2DA ,no
+IRQ D2 ,no
+Leinster S C   ,no
+BRA CP ,no
+BRA SPB ,no
+BRA CCD1 ,no
+BRA CE ,no
+BRA CGD1,no
+SAOQ   ,no
+BRA CCD1,no
+BRA CE  ,no
+BRA SP  ,no
+BRA MT,no
+HON D1(a),no
+URU AC ,no
+Cyprus C W  ,no
+BRA SM  ,no
+AEG C ,no
+MCC  ,no
+SCO LLC ,no
+Uganda C,no
+BRA MG   ,no
+BRA SPC2,no
+HOL Cup,no
+AUS PLNS,no
+D.C ,no
+KUW Cup ,no
+SIL PL ,no
+FIN LC,no
+IRQ C     ,no
+T C ,no
+BRP PS D2  ,no
+CNCF W U17 ,no
+ICE CU19 ,no
+Uruguay SC ,no
+AOC ,no
+AUS QPS ,no
+LBN D1CG ,no
+Welsh PRCG,wal_premier-league_championship
+Welsh PRRF,wal_premier-league_relegation
+ACT M(a)  ,no
+ARG D2 ,no
+FIN YCUP   ,no
+LBN D1RF   ,no
+AUS FWD1  ,no
+FRAC U19  ,no
+FIN CU20  ,no
+SEN C   ,no
+BRA AMP  ,no
+BRA CT ,no
+BSC   ,no
+ARG RC  ,no
+CAN W-U17,no
+GIB Cup,no
+ILC ,no
+TUN D1R    ,no
+CNCF CHL ,concacaf_champions-league
+OP WOFC ,no
+ICE WLC    ,no
+AUS VPL ,no
+AUS WQSL  ,no
+AVPL U23    ,no
+Aus NPL U23 ,no
+Aus VD1  ,no
+Bulg SC ,no
+POR L3Playoffs,no
+BSW C    ,no
+MATCH L ,no
+CRS CUP ,no
+Barbados P L,no
+VIAT        ,no
+BSWC ,no
+ICE LCB ,no
+IRE D1 ,irl_first-division
+AB U20 L ,no
+ANSW L ,no
+AUS NSW    ,no
+AUS NSWSL  ,no
+FIN CUP  ,no
+ISS   ,no
+JPN SC ,no
+MAL D2CG  ,no
+WAWC ,no
+Oce CL ,no
+INT DCUP ,no
+Columbia W L ,no
+NIC CUP ,no
+CON CLA ,sa_copa-libertadores
+KSCUP  ,no
+MAC D1  ,no
+Tanzania Cup ,no
+W4NT ,no
+ANQ U23,no
+W4NT ,no
+AUS SASL,no
+CNCF U20Q,no
+NPL U23 A,no
+NSW-N RL ,no
+QLD D1   ,no
+ICE LCC ,no
+FFSA PL ,no
+FFSA SLR ,no
+NSW-N TPL,no
+CYP D1RF ,cyp_first-division_relegation
+CYP D1CG,cyp_first-division_championship
+A FFA Cup ,no
+AUS QSL   ,no
+BCL     ,no
+EST SC     ,no
+KAZ SC     ,no
+Kenya C   ,no
+Turkey A League ,no
+BRA CER ,no
+COL D1a,no
+SWE U21ASN,no
+ACT Ma ,no
+PER D1a,no
+ARG B Ma ,no
+COL D2a ,no
+GUA D1a ,no
+BOL D1a,no
+BRA CV ,no
+Brazil SUP,no
+CRC D1a  ,no
+Mal WL ,no
+NIC D1a  ,no
+HON D1a,no
+MEX D1a ,no
+VEN D1a ,no
+ECU D1a,no
+MEX D2a ,no
+PAR D1a ,no
+AUS BPLD1,no
+AUS NSW WPL,no
+FFSA WPL ,no
+MYA Cup  ,no
+QLD D2  ,no
+THA W  ,no
+A U20W C ,no
+AUS NSW PL ,no
+AUS WNSW,no
+FIJ NL ,no
+MAL D2RF ,no
+QAT QC   ,no
+R WL ,no
+LIBC U20 ,no
+Iran Cup ,no
+Mex MFWa,no
+SLV D1a ,no
+SPA RC ,no
+AAS     ,no
+ALG UC   ,no
+BHR YTH ,no
+BRA CPoff,no
+MNE U19  ,no
+SVK D1CG ,svk_super-liga_championship
+SVK D1R,svk_super-liga_relegation
+AAS WNC,no
+DOM D1,no
+BRA RJ ,no
+GRE D1CG ,gre_super-league_meisterschaft
+MOL D1CG ,mda_divizia-nationala_phase-ii
+TUN D1CG,no
+Mali C ,no
+BRA MGR ,no
+India U21 DL,no
+KAZ C,kaz_premier-liga
+MOL D2PR ,mda_relegation
+NGA PL ,no
+ROM D1RF  ,rou_liga-1_relegation
+ROM D1CG,rou_liga-1_championship
+RUS YthCA ,no
+RUS YthCB,no
+SAND2 ,no
+GFA FFC,no
+AUT D1CG ,aut_bundesliga_meistergruppe
+FAR D1  ,fro_effodeildin
+CON WU17 ,no
+Brazil W L,no
+NWSLCup,no
+Australia T S L,no
+AUS VS L ,no
+AUS WPL  ,no
+FFSA WR  ,no
+IWD1RF ,no
+|NOR D1 W,no
+QLD D3 ,no
+THA L3SCP,no
+TSA PC,no
+TSA TPL,no
+WAUS D1,no
+WAUS U20 ,no
+GRE D1RF ,gre_super-league_abstieg
+AUT D1RF,aut_bundesliga_qualifikationsgruppe
+BRA MGCS ,no
+DEN WD1CG ,no
+Ethiopia HL,no
+NOR D1 W   ,no
+PH UFL  ,no
+SCO WPLRF ,no
+THA L3NCP ,no
+ISR WC,no
+BRA RR ,no
+USA CUP ,no
+AUS DPL ,no
+AUS WALR  ,no
+BPL (W)CG   ,no
+CRSK U19 Cup ,no
+DEN WD1R  ,no
+IWD1CG  ,no
+NOR NZL ,no
+UGA CW  ,no
+UKR D2CG ,no
+WAUS D2 ,no
+CHA D2N    ,no
+CHA D2S  ,no
+GRE D2PPO ,no
+GRE D2RF  ,no
+HKFAJD CUP ,no
+Thai D4 ,no
+KR D2R  ,no
+FAR WSC,no
+BRA RO,no
+MOLE Cup ,no
+ISR W1CG ,no
+ISR W1R      ,no
+ROM D2PR ,no
+FFSA NZL,no
+MOL D2RA,no
+UKR D2R,no
+ZAM Cup,no
+BEL D1CG ,bel_eerste-klasse-a_championship
+BPL (W)RF,no
+IND RAD ,no
+ISR D1CG   ,isr_ligat-haal_championship
+ISR D1RF ,isr_ligat-haal_relegation
+ROM D2RGA   ,no
+ROM D2RGB ,no
+RUS D2S ,no
+WAUS WD1 ,no
+DEN D1off,no
+BRA CEoff ,no
+KUW D1CG  ,no
+BRA RJOFF ,no
+BEL D1off ,bel_eerste-klasse-a_europe
+CYP D2RF ,no
+DEN D1R   ,no
+SCO WPLCG  ,no
+DEN SASLR  ,den_superligaen_relegation
+PCNW  ,no
+KUW D1RF,no
+DEN SASLCG ,den_superligaen_championship
+TM U16,no
+Bra YL  ,no
+UEFACW ,no
+FIN D1 ,fin_veikkausliiga
+BEL D1RF ,bel_eerste-klasse-a_relegation
+NIR D1CG ,nir_premier-league_championship
+NIR D1RF,nir_premier-league_relegation
+ICE PR ,isl_urvalsdeild
+Aus CTLW,no
+FINWC ,no
+VIE D3 ,no
+UAE U21-C ,no
+KSA SC ,no
+BRA D4 ,no
+NORC ,no
+CON WU20,no
+LCC   ,no
+FIN D3 AD,no
+FIN WD1  ,no
+OFC U16 ,no
+AUS CGP  ,no
+AUS CGP B,no
+DEN D2RF ,no
+UZB LW ,no
+DEN D2PPO ,no
+Can PL,can_premier-league
+BOL D1QF ,no
+DEN D3PPO  ,no
+DEN D3RF  ,no
+TAJ L1 ,no
+BHR YC,no
+AFC U23,no
+SER WC ,no
+ISCW   ,no
+NIR CHRF,no
+AFC FC ,no
+JPN LC    ,no
+KSA D2   ,no
+Moldova W C ,no
+SFC  ,no
+SVK WC  ,no
+WROM C  ,no
+MEX D2cr,no
+ISR D2PPO,no
+ISR D2RF ,no
+Alg WC  ,no
+CFC   ,no
+SER D1CG ,srb_super-liga_championship
+BOL D1asf ,no
+FAR WD1,no
+TSA TCL  ,no
+SER D1RA,srb_super-liga_relegation
+SER D2RF ,no
+N AFR U17,no
+ICE WC ,no
+ICE WPR,no
+Burundi Cup ,no
+EST U19 ,no
+HUN WCup ,no
+QAT PC,no
+BUL D1R ,bul_parva-liga_relegation
+NIR CHPPO ,no
+BUL D1CG,bul_parva-liga_championship
+SYC Cup  ,no
+THA L3TP ,no
+VEN D1Ape-A,no
+GRE D2RF A,no
+BUL D1off ,bul_parva-liga_conference-league
+GRE D2PPO B,no
+BEL D2USF ,no
+BOL D1AF   ,no
+ICE D1     ,isl_1-deild
+NIR D1off     ,no
+QCP Cup ,no
+SAN Loff     ,smr_playoff
+SER D2CG  ,no
+VEN D1Ape-B ,no
+TUR 3BPPO,no
+POR U23 C,no
+ECUW D1,no
+ENG U21off,no
+LCE D3 ,no
+CZE W1CG ,no
+DEN WDoff,no
+LLW  ,no
+CZE D1R  ,cze_1-fotbalova-liga_abstieg
+CZE D1CG,cze_1-fotbalova-liga_meisterschaft
+SUI SLCG,sui_super-league_championship
+SUI SLRA,sui_super-league_relegation
+KG CUP   ,no
+MAC D1CG ,no
+NIC D1asf ,no
+CZE D1off ,cze_1-fotbalova-liga_platzierung
+BOW FAC,no
+ICE LD1 ,no
+MAL D2Off    ,no
+QAT D1RF   ,no
+AFC W U17 ,no
+TUR 3Boff,no
+VIEL W   ,no
+LIT Cup  ,no
+Macedonia C W,no
+BFC,no
+GRE D2RF B,no
+ENG L1PPO ,eng_league-1_playoff
+KAZ C ,no
+CAN CHL  ,can_champ
+HON D1(c),no
+MEX D2FC ,no
+AusM,no
+Ita U19 LW ,no
+NOR WCUP ,no
+Olympic ,no
+TUR D3UQF ,no
+BGD WD1,no
+LCE D4 ,no
+ISR D3RF ,no
+GRE D2PPO A ,no
+IBT Cup  ,no
+NZ WC,no
+SIN D1    ,no
+USA-ULT,no
+ENG U21Off,no
+FA Vase  ,no
+IRE U20,no
+SCO PRCG ,sco_premiership_championship
+SCO PRRG    ,sco_premiership_relegation
+TAJ SC    ,no
+USA ULOC,no
+JAP CUP,no
+CPLCG     ,no
+ISR D3UQF ,no
+MAC D1R    ,no
+SPA D3Rf  ,no
+SPA D3USF   ,no
+NIC D1AF,no
+FIN WD2,no
+TUR D3USF ,no

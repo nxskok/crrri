@@ -18,7 +18,7 @@ dump_DOM <- function(url, file = "") {
       Page$navigate(url = url)
     } %...>% {
       Page$loadEventFired()
-    } %...>% {
+    } %>% wait(delay = 1) %...>% {
       Runtime$evaluate(
         expression = 'document.documentElement.outerHTML'
       )

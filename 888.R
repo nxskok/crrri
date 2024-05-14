@@ -25,11 +25,27 @@ html_tab <- function(url, mtime) {
 }
 
 best_match <- function(x, lookup) {
+  if (length(lookup) == 0) return(NULL)
   stringsimmatrix(x, lookup, method = "lcs") %>%
     apply(1, which.max) -> perm
+  # as.character(length(perm))
   lookup[perm]
 }
 
+make_like <- function(score, x2, x1, x0) {
+  tibble(score = score, x2, x1, x0) %>%
+    mutate(score = ifelse(score %in% c("-", "Lineup"), "0 - 0", score)) %>%
+    separate_wider_delim(score, names = c("s1", "s2"), delim = "-",
+                         too_few = "align_start") %>%
+    mutate(across(starts_with("s"), as.numeric)) %>%
+    mutate(ans = case_when(
+      s1 > s2   ~ x2,
+      s1 == s2  ~ x1,
+      s1 < s2   ~ x0,
+      .default = -1
+    )) %>%
+    pull(ans)
+}
 
 
 enframe(list.files(path = "888", pattern = "888_.*.html", full.names = TRUE)) %>%
@@ -53,6 +69,9 @@ predictions %>%
 
 nowtime <- now()
 
+# what <- c(1:6, 8:11, 13:15)
+# file_list[-what]
+# file_list
 map2(file_list, mtimes, \(x, y) html_tab(x, y)) %>%
   bind_rows() %>%
   arrange(league, t1) %>%
@@ -71,27 +90,101 @@ map2(file_list, mtimes, \(x, y) html_tab(x, y)) %>%
   mutate(key = str_c(t1, " - ", t2)) -> latest_scores
 
 
-latest_scores %>%
-  rowwise() %>%
-  mutate(bm = best_match(key, predictions2$key)) %>%
-  left_join(predictions2, join_by(bm == key)) %>%
-  ungroup() %>%
-  select(fname,
-         ko = ko,
-         time = time,
-         t1 = t1.y,
-         r1,
-         r2,
-         t2 = t2.y,
-         status,
-         score,
-         `2`, `1`, `0`, s1, s2,
-         league) %>%
-  left_join(no, join_by(league)) %>%
-  mutate(mtch = str_detect(fname, info)) %>%
-  select(-info) %>%
-# select(-squawk) %>%
-  knitr::kable()
+if (nrow(predictions2) == 0) {
+  latest_scores %>%
+    mutate(mtch = NA) -> d1a
+} else {
+  latest_scores %>%
+    rowwise() %>%
+    mutate(bm = best_match(key, predictions2$key)) %>%
+    left_join(predictions2, join_by(bm == key)) %>%
+    ungroup() %>%
+    mutate(score0 = str_replace(score, " - ", "-")) %>%
+    # unnest(ppd, names_sep = "_") %>%
+    mutate(fname_no_year = str_remove(fname, "_20[0-9].(-20..)?")) %>%
+    mutate(mtch = str_detect(fname_no_year, info)) -> d1
+}
+
+# if (!("ppd_score" %in% names(d1))) stop("no games")
+
+# d1
+
+# doesn't match because of the part after the year, so I should extract
+# the year and match on that
+
+
+# matched games
+
+if (exists("d1a")) {
+  cat("\nd1a:\n")
+
+  d1a %>%
+    select(-key) %>%
+    knitr::kable() %>% print()
+} else {
+  cat("\nMatched games:\n")
+
+  d1 %>%
+    filter(mtch) %>%
+    mutate(like = make_like(score, `2`, `1`, `0`)) %>%
+    # filter(score0 == ppd_score) %>%
+    select(fname,
+           ko = ko,
+           time = time,
+           t1 = t1.y,
+           r1,
+           r2,
+           t2 = t2.y,
+           st = status,
+           score,
+           like,
+           league,
+           `2`, `1`, `0`,
+           mtch) %>%
+    left_join(no, join_by(league)) %>%
+    mutate(t1 = ifelse(mtch, t1, NA)) %>%
+    mutate(t2 = ifelse(mtch, t2, NA)) %>%
+    select(-info) %>%
+    # select(-squawk) %>%
+    knitr::kable() %>% print()
+
+  # leagues I want, but games not matched
+
+  cat("\nMatched leagues (but not games):\n")
+
+  d1 %>%
+    # filter(score0 == ppd_score) %>%
+    filter(!mtch) %>%
+    select(league,
+           time = time,
+           t1 = t1.x,
+           t2 = t2.x,
+           st = status,
+           score,
+           mtch) %>%
+    knitr::kable() %>% print()
+
+
+  # non-matched leagues
+
+
+  cat("\nNon-matched leagues:\n")
+
+  d1 %>%
+    # filter(score0 == ppd_score) %>%
+    filter(is.na(mtch)) %>%
+    select(league,
+           time = time,
+           t1 = t1.x,
+           t2 = t2.x,
+           st = status,
+           score,
+           mtch) %>%
+    knitr::kable() %>% print()
+
+}
+
+
 
 cat("\n")
 print(glue::glue("Last get: {last_get} (saved)"))

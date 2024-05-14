@@ -38,7 +38,7 @@ map2(file_list, mtimes, \(x, y) html_tab(x, y)) %>%
   bind_rows() %>%
   arrange(league, t1) %>%
   group_by(league, t1) %>%
-  filter(status != "FT") %>%
+  # filter(status != "FT") %>%
   filter(score != "-") %>%
   filter(score != "") %>%
   left_join(no, join_by(league)) %>%
