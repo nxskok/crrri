@@ -1,0 +1,107 @@
+notes for re-factoring of 888_changes_b.R
+
+make 888_changes_b_functions.R
+
+
+```{r}
+predictions <- read_rds(my_url)
+
+predictions %>%
+  filter(ko <= nowtime + hours(3)) %>%
+  mutate(key = str_c(t1, " - ", t2)) -> predictions2
+predictions2
+
+
+
+predictions2
+```
+
+```{r}
+map2(file_list, mtimes, \(x, y) html_tab(x, y)) %>%
+  bind_rows() %>%
+  arrange(league, t1) %>%
+  group_by(league, t1) %>%
+  mutate(next_score = lead(score),
+         last_score = lag(score),
+         next_status = lead(status),
+         last_status = lag(status)) %>%
+  filter( score != next_score |
+            score != last_score |
+            ((status == "FT") & (last_status != "FT"))) %>%
+  select(league, time, status, t1, score, t2) %>%
+  left_join(no, join_by(league)) %>%
+  filter(is.na(info) | info != "no") %>%
+  arrange(info) %>%
+  mutate(key = str_c(t1, " - ", t2)) -> latest_scores
+
+```
+
+```{r}
+make_latest_scores <- function(file_list, mtimes) {
+  map2(file_list, mtimes, \(x, y) html_tab(x, y)) %>%
+  bind_rows() %>%
+  arrange(league, t1) %>%
+  group_by(league, t1) %>%
+  mutate(next_score = lead(score),
+         last_score = lag(score),
+         next_status = lead(status),
+         last_status = lag(status)) %>%
+  filter( score != next_score |
+            score != last_score |
+            ((status == "FT") & (last_status != "FT"))) %>%
+  select(league, time, status, t1, score, t2) %>%
+  left_join(no, join_by(league)) %>%
+  filter(is.na(info) | info != "no") %>%
+  arrange(info) %>%
+  mutate(key = str_c(t1, " - ", t2)) 
+}
+latest_scores <- make_latest_scores(file_list, mtimes)
+latest_scores
+```
+
+```{r}
+make_d1a <- function(latest_scores) {
+  latest_scores %>%
+    mutate(mtch = NA)  
+}
+
+d1a <- make_d1a(latest_scores)
+d1a
+latest_scores %>%
+    mutate(mtch = NA) -> d1a
+
+```
+
+```{r}
+  latest_scores %>%
+    rowwise() %>%
+    mutate(bm = best_match(key, predictions2$key)) %>%
+    left_join(predictions2, join_by(bm == key)) %>%
+    ungroup() %>%
+    mutate(score0 = str_replace(score, " - ", "-")) %>%
+    # unnest(ppd, names_sep = "_") %>%
+    mutate(fname_no_year = str_remove(fname, "_20[0-9].(-20..)?")) %>%
+    mutate(mtch = str_detect(fname_no_year, info)) -> d1
+
+
+make_d1 <- function(latest_scores, predictions2) {
+  latest_scores %>%
+    rowwise() %>%
+    mutate(bm = best_match(key, predictions2$key)) %>%
+    left_join(predictions2, join_by(bm == key)) %>%
+    ungroup() %>%
+    mutate(score0 = str_replace(score, " - ", "-")) %>%
+    # unnest(ppd, names_sep = "_") %>%
+    mutate(fname_no_year = str_remove(fname, "_20[0-9].(-20..)?")) %>%
+    mutate(mtch = str_detect(fname_no_year, info))
+}
+
+d1 <- make_d1(latest_scores, predictions2)
+d1
+```
+
+```{r}
+display_matched_games(d1, no)
+display_non_matched_games(d1)
+```
+

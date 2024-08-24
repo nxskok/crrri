@@ -1,0 +1,8 @@
+quarto render 888_changes_b.qmd
+#lynx 888_changes_b.html
+#Rscript 888_changes_b.R
+#Rscript empty.R > thing.html
+#lynx thing.html
+#quarto render test_kable-extra.qmd -o test.html
+#lynx test.html
+

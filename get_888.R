@@ -3,7 +3,7 @@ library(crrri)
 brave <- "/usr/bin/brave-browser"
 Sys.setenv(HEADLESS_CHROME = brave)
 
-system2("fuser -k 9222/tcp")
+# system2("fuser -k 9222/tcp")
 
 dump_DOM <- function(url, file = "") {
   perform_with_chrome(function(client) {
@@ -39,7 +39,7 @@ while (TRUE) {
     Sys.sleep(1 * 60) # this many minutes
   } else {
     print("successful")
-    Sys.sleep(3 * 60) # this many minutes
+    Sys.sleep(2 * 60) # this many minutes
   }
 }
 

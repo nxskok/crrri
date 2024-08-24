@@ -1,15 +1,27 @@
+---
+title: "updates"
+format: html
+execute: 
+  echo: false
+df-print: kable
+---
+
+
+
+```{r}
 #| message: false
 library(tidyverse)
 library(rvest)
+library(kableExtra) # this makes html output, so all the output 
 library(stringdist)
 cutoff <- read_rds("last_get.rds") - seconds(30)
 print(glue::glue("Cutoff: {cutoff}"))
+```
 
 
-# no <- read_csv("no.csv")
-# # no
-# no %>% mutate(squawk = "no") -> no
 
+```{r}
+#| message: false
 no <- read_csv("no-longer.csv")
 
 html_tab <- function(url, mtime) {
@@ -47,7 +59,10 @@ make_like <- function(score, x2, x1, x0) {
     pull(ans)
 }
 
+```
 
+
+```{r}
 enframe(list.files(path = "888", pattern = "888_.*.html", full.names = TRUE)) %>%
   mutate(mtime = file.mtime(value)) %>%
   filter(mtime >= cutoff) %>%
@@ -57,9 +72,13 @@ d %>%
 d %>%
   pull(mtime) -> mtimes
 d %>% summarize(max = max(mtime)) %>% pull(max) -> last_get
+```
 
-# get predictions
 
+
+
+
+```{r}
 my_url <- "~/Documents/r-projects/world-football/predictions.rds"
 predictions <- read_rds(my_url)
 predictions %>%
@@ -105,16 +124,12 @@ if (nrow(predictions2) == 0) {
     mutate(mtch = str_detect(fname_no_year, info)) -> d1
 }
 
-# if (!("ppd_score" %in% names(d1))) stop("no games")
-
-# d1
-
-# doesn't match because of the part after the year, so I should extract
-# the year and match on that
+```
 
 
-# matched games
 
+
+```{r}
 if (exists("d1a")) {
   cat("\nd1a:\n")
 
@@ -144,10 +159,10 @@ if (exists("d1a")) {
     left_join(no, join_by(league)) %>%
     mutate(t1 = ifelse(mtch, t1, NA)) %>%
     mutate(t2 = ifelse(mtch, t2, NA)) %>%
-    select(-info)
-  # %>%
+    select(-info) %>%
     # select(-squawk) %>%
-    # knitr::kable() %>% print()
+    knitr::kable() %>% 
+    print()
 
   # leagues I want, but games not matched
 
@@ -162,9 +177,8 @@ if (exists("d1a")) {
            t2 = t2.x,
            st = status,
            score,
-           mtch)
-  # %>%
-    # knitr::kable() %>% print()
+           mtch) %>% 
+           knitr::kable() %>% print() 
 
 
   # non-matched leagues
@@ -181,16 +195,22 @@ if (exists("d1a")) {
            t2 = t2.x,
            st = status,
            score,
-           mtch)
-  # %>%
-    # knitr::kable() %>% print()
+           mtch) %>%
+    knitr::kable() %>% print()
 
 }
 
 
+```
 
+
+```{r}
 cat("\n")
 print(glue::glue("Last get: {last_get} (saved)"))
 
 write_rds(last_get, "last_get.rds")
+
+```
+
+
 

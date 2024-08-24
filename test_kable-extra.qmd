@@ -1,0 +1,22 @@
+testing kable extra
+
+```{r}
+library(tidyverse)
+library(kableExtra)
+```
+
+```{r}
+mtcars %>% 
+  rownames_to_column("car") %>% 
+  arrange(cyl) %>% 
+  kbl()
+```
+
+```{r}
+mtcars %>% 
+  rownames_to_column("car") %>% 
+  arrange(cyl) %>% 
+  kbl() %>% 
+  collapse_rows(columns = 3, valign = "top")
+```
+

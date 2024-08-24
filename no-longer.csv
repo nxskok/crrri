@@ -162,7 +162,7 @@ DEN D2A,no
 DEN D3,no
 DEN D4,no
 DEN RL,no
-DEN SASL,den_superligaen
+DEN SASL,den_superliga
 DEN U21,no
 DEN WD,no
 DEN WD1,no
@@ -1113,7 +1113,7 @@ CRC D1a  ,no
 Mal WL ,no
 NIC D1a  ,no
 HON D1a,no
-MEX D1a ,no
+MEX D1a ,mex_d1-apertura
 VEN D1a ,no
 ECU D1a,no
 MEX D2a ,no
@@ -1152,7 +1152,7 @@ TUN D1CG,no
 Mali C ,no
 BRA MGR ,no
 India U21 DL,no
-KAZ C,kaz_premier-liga
+KAZ C,no
 MOL D2PR ,mda_relegation
 NGA PL ,no
 ROM D1RF  ,rou_liga-1_relegation
@@ -1376,3 +1376,188 @@ SPA D3USF   ,no
 NIC D1AF,no
 FIN WD2,no
 TUR D3USF ,no
+ZAN CUP ,no
+IDN ISLCS,no
+ICE CUP ,no
+USL WLW ,no
+CRYL ,no
+GRE CW ,no
+AYC U17 ,no
+GER U19off ,no
+SPA WRl  ,no
+ETH WL,no
+CAE CUP ,no
+Nigeria Cup ,no
+Pol U19   ,no
+UKR D2PPO,no
+POL D2PPO ,no
+Uzbekistan Su,no
+NIC D1RF,no
+GermanyY U19 P ,no
+SVK U19W ,no
+TFF 1. LigUF ,no
+Fiji cup ,no
+BHR D1RF  ,no
+ICE D2  ,no
+ITA YTHL  ,no
+SLC   ,no
+COL D2Off B ,no
+NZC ,no
+HOL D3Off ,no
+MAS FAM ,no
+UKR D2RF  ,no
+ITA YL BUF,no
+POL D2UF ,no
+SPA D3UF,no
+BRA RJ A2,no
+SPA D3UF ,no
+BRA CCD2 ,no
+BRA PR2 ,no
+COL D2Off A,no
+BRA LNAAF,no
+BEL D1off,bel_uecl-playoff
+FRA U19off ,no
+GER RegPPO ,ger_regionalliga_promotion
+SAFLoff ,no
+FRA D2Off,fra_ligue-2_playoff
+FIN YKW ,no
+SJC ,no
+SPDRFEF,esp_primera-rfef_pro-playoff
+CZE D1RF ,cze_first-league_qualification
+POR D2RF ,no
+CAFA U-20,no
+TUR D3UF ,no
+ITA D2off ,ita_serie-b_pro-playoff
+LUX D1off ,lux_national_qualif
+VEN D1AF,no
+TDC  ,no
+TOUT ,no
+MML W ,no
+WCPCA     ,wcq_concacaf_qualif
+SUI PLPSF ,sui_promotion-league_qualif
+Baltic Cup ,no
+LAT L3 ,no
+VEN CUP ,no
+Jordan L W ,no
+THA UL  ,no
+CHI T ,no
+AUS V U20 ,no
+HOL D3off ,no
+COL D1AF,no
+ITA C1off,ita_serie-c_playoff
+BRA CB2  ,no
+SPA D2PPO ,esp_segunda-division_playoff
+MAS FAC,no
+ANNLR   ,no
+CZE CFLoff,no
+FFSA SL2,no
+Brazil W L2 ,no
+CHA CSL U21off,no
+GER Reg W ,no
+WA PW U21 ,no
+ICE LLC ,no
+TTLdoff,no
+COL D2AF ,no
+OFC W U16,no
+Mauritania Cup,no
+AFF U16 ,no
+PAR U19 ,no
+NCAL Cup,concacaf_leagues
+AUS WNSWR,no
+CLW   ,no
+WAUS WD2 ,no
+Par DInt ,no
+WAFF-U19 ,no
+SACC,no
+AMEC,sa_copa-america
+ASEAN U16 ,no
+COSAFA Cup ,no
+LIBD1LCG ,no
+PAR D3,no
+WBCUP ,no
+NIR CUP(W) ,no
+CAN CSL ,no
+ECU CUP ,no
+MEX CC ,no
+BCI W  ,no
+GEO SC ,no
+MGL PLOff,no
+ICE LD2,no
+OFCCU19,no
+Kazakhstan LC,no
+VIE D2off,no
+USA NISAIC ,no
+CHN WC ,no
+CECAFA CC ,no
+AUS NSWC W,no
+IS-CUP ,no
+FFV Cup ,no
+Mya U20L,no
+ASEAN U19,no
+IDN PC,no
+SNFL  ,no
+MEX U19 W,no
+COTIF ,no
+BRA LNAa ,no
+IRQ D1off ,no
+WOFT,no
+BSWCP ,no
+CONCACAF CS ,no
+Id DCup  ,no
+Europe CEC,no
+ISR LATTC,no
+NLMS-W,no
+GHA SC,no
+MYA D2 ,no
+AC FA CUP,no
+Slo D4 ,no
+IND RC,no
+KWSL ,no
+Anka cup,no
+DEN D2  ,no
+SK RL  ,no
+GER JBA ,no
+GER JBG ,no
+MOZ CUP ,no
+AUS VWC,no
+CS Cup ,no
+GER JBB,no
+GER JBC,no
+GER JBD ,no
+GER JBE,no
+GER JBF ,no
+GER JBH ,no
+MTN8 ,no
+TAJ CUP ,no
+TAN FACS,no
+URU D1a,no
+MAC FA CUP,no
+PORJA2S,no
+Santa Fe Cup W,no
+BLN U19,no
+ACGL,no
+ACLE,no
+ACL2,no
+AUS NSWC,no
+PORJA2N,no
+UEFA RC,no
+LAT L2,no
+SAVC,no
+CHA D2R,no
+CHA D2RP,no
+COSAFA CLW,no
+ZIM CUP,no
+ITASYC,no
+CNCF WCC,no
+ASEAN CC,no
+BRA PB2,no
+FIN D3 AAR,no
+Portugal Cupï¼ˆWï¼‰,no
+RUS YthCCG,no
+RUS YthCRP,no
+FIN D3 ABP,no
+FIN D3 ACR,no
+GER U17,no
+AQC,no
+FIN D3 ACP,no
+UAE RL,no
