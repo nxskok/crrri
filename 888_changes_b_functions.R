@@ -50,6 +50,13 @@ make_d <- function(cutoff) {
     arrange(mtime)
 }
 
+make_d_c <- function(cutoff) {
+  enframe(list.files(path = "888", pattern = "*.rds", full.names = FALSE)) %>%
+    mutate(mtime = ymd_hms(value, tz = "America/Toronto")) %>%
+    filter(mtime >= cutoff) %>%
+    mutate(value = str_c("888/", value)) %>%
+    arrange(mtime)
+}
 
 make_current_predictions <- function(predictions, nowtime) {
   predictions %>%
@@ -84,6 +91,26 @@ make_latest_scores <- function(file_list, mtimes) {
     arrange(info) %>%
     mutate(key = str_c(t1, " - ", t2))
 }
+
+make_latest_scores_c <- function(file_list, mtimes) {
+  map(file_list, \(x) read_rds(x)) %>%
+    bind_rows() %>%
+    arrange(league, t1) %>%
+    group_by(league, t1) %>%
+    mutate(next_score = lead(score),
+           last_score = lag(score),
+           next_status = lead(status),
+           last_status = lag(status)) %>%
+    filter( score != next_score |
+              score != last_score |
+              ((status == "FT") & (last_status != "FT"))) %>%
+    select(league, time, status, t1, score, t2) %>%
+    left_join(no, join_by(league)) %>%
+    filter(is.na(info) | info != "no") %>%
+    arrange(info) %>%
+    mutate(key = str_c(t1, " - ", t2))
+}
+
 
 make_d1a <- function(latest_scores) {
   latest_scores %>%

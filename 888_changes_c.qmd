@@ -1,0 +1,101 @@
+---
+format: 
+  html:
+    page-layout: full
+---
+
+```{r}
+#| echo: false
+#| message: false
+library(tidyverse)
+library(rvest)
+library(kableExtra) # this makes html output, so all the output needs to be html
+library(stringdist)
+library(conflicted)
+conflicts_prefer(dplyr::filter)
+conflicts_prefer(dplyr::lag)
+source("888_changes_b_functions.R")
+```
+
+```{bash}
+scp ken@megan-laptop.local:projects/crrri/888/*.rds 888
+```
+
+
+
+```{r}
+#| echo: false
+#| message: false
+cutoff <- read_rds("last_get.rds") - seconds(30)
+# print(glue::glue("  Cutoff: {cutoff}"))
+no <- read_csv("no-longer.csv")
+d <- make_d_c(cutoff)
+d %>% pull(value) -> file_list
+d %>% pull(mtime) -> mtimes
+d %>% summarize(max = max(mtime)) %>% pull(max) -> last_get
+my_url <- "~/Documents/r-projects/world-football/predictions.rds"
+nowtime <- now()
+predictions <- read_rds(my_url)
+predictions2 <- make_current_predictions(predictions, nowtime)
+latest_scores <- make_latest_scores_c(file_list)
+# ongoing_games <- how_many_current_scores(file_list, mtimes)
+if (nrow(predictions2) == 0) {
+  d1a <- make_d1a(latest_scores)
+} else {
+  d1 <- make_d1(latest_scores, predictions2)
+}
+```
+
+```{r}
+#| echo: false
+# cat("\n")
+# print(glue::glue("Last get: {last_get} (saved)"))
+write_rds(last_get, "last_get.rds")
+```
+
+## Status
+
+```{r}
+#| echo: false
+tribble(
+  ~status, ~time,
+  "cutoff", cutoff,
+  "last get", last_get
+) %>% kbl() %>% 
+  kable_minimal(full_width = FALSE)
+```
+
+
+## Matched games
+
+```{r}
+#| error: true
+#| echo: false
+display_matched_games(d1, no)
+```
+
+## Matched leagues (but not games)
+
+```{r}
+#| error: true
+#| echo: false
+display_non_matched_games(d1)
+```
+
+## Non-matched leagues
+
+```{r}
+#| error: true
+#| echo: false
+display_non_matched_leagues(d1)
+```
+
+## Results when no predictions
+
+```{r}
+#| error: true
+#| echo: false
+display_d1a(d1a) # this will throw an error in the likely case that there is none
+```
+
+
