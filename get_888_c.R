@@ -1,6 +1,7 @@
 library(tidyverse)
 # library(lubridate)
 library(crrri)
+source("888_changes_b_functions.R")
 brave <- "/usr/bin/brave-browser"
 Sys.setenv(HEADLESS_CHROME = brave)
 
@@ -40,7 +41,10 @@ while (TRUE) {
     Sys.sleep(1 * 60) # this many minutes
   } else {
     print("successful")
-    Sys.sleep(1 * 60) # this many minutes
+    # then process html file
+    save_html_as_rds(fname)
+    file.remove(fname)
+    Sys.sleep(2 * 60) # this many minutes
   }
 }
 

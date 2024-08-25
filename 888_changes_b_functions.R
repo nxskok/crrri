@@ -10,6 +10,15 @@ html_tab <- function(url, mtime) {
     select(time, league:t2)
 }
 
+save_html_as_rds <- function(fname) {
+  m <- file.mtime(fname)
+  savename <- str_c("888/", m, ".rds")
+  x <- html_tab(fname, m)
+  write_rds(x, savename)
+  savename
+}
+
+
 best_match <- function(x, lookup) {
   if (length(lookup) == 0) return(NULL)
   stringsimmatrix(x, lookup, method = "lcs") %>%

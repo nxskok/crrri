@@ -1,0 +1,40 @@
+```{r}
+library(tidyverse)
+library(rvest)
+source("888_changes_b_functions.R")
+```
+
+
+get the html files
+
+```{r}
+html_files <- list.files(path = "888", pattern = "*.html", full.names = TRUE)
+html_files
+```
+
+from an html file, pull out scores 
+
+```{r}
+i <- 1
+m <- file.mtime(html_files[i])
+m
+fname <- str_c("888/", m, ".rds")
+fname
+html_tab(html_files[i], m) %>% 
+  write_rds(fname)
+```
+
+```{r}
+save_html_as_rds <- function(fname) {
+  m <- file.mtime(fname)
+  savename <- str_c("888/", m, ".rds")
+  x <- html_tab(fname, m)
+  write_rds(x, savename)
+  savename
+}
+```
+
+```{r}
+save_html_as_rds(html_files[4])
+```
+
