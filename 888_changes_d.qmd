@@ -79,7 +79,7 @@ display_matched_games_d(d1, no)
 ```{r}
 #| error: true
 #| echo: false
-display_non_matched_games(d1)
+display_non_matched_games_d(d1)
 ```
 
 ## Non-matched leagues
@@ -108,7 +108,7 @@ latest_time %>% read_rds() %>%
   filter(!is.na(info) & info != "no") %>% 
   filter(status != "FT") %>% 
   select(info, ko:t2) %>% 
-  arrange(ko) %>% 
+  # arrange(ko) %>% 
   kbl() 
 # %>% 
 #   kable_minimal(full_width = FALSE)

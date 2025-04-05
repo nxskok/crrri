@@ -263,6 +263,28 @@ display_non_matched_games <- function(d1) {
 
 }
 
+display_non_matched_games_d <- function(d1) {
+  if (nrow(d1) ==0) return (NULL)
+
+  d1 %>%
+    filter(!mtch) -> d11
+
+  if (nrow(d11) == 0) return("No non-matched games")
+
+  d11 %>%
+    select(league,
+           time = time,
+           t1 = t1.x,
+           t2 = t2.x,
+           st = status,
+           score,
+           is_new) %>%
+    kbl() %>%
+    collapse_rows(columns = c(1, 3, 4), valign = "top")
+
+
+}
+
 
 display_non_matched_leagues <- function(d1) {
 
