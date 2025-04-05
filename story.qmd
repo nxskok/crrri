@@ -1,0 +1,55 @@
+
+
+```{r}
+#| echo: false
+#| message: false
+library(tidyverse)
+library(rvest)
+library(kableExtra) # this makes html output, so all the output needs to be html
+library(stringdist)
+library(conflicted)
+conflicts_prefer(dplyr::filter)
+conflicts_prefer(dplyr::lag)
+source("888_changes_b_functions.R")
+```
+
+```{bash}
+#| echo: false
+rsync -a  ken@megan-laptop.local:projects/crrri/888/*.rds 888
+```
+
+```{r}
+cutoff <- read_rds("last_get.rds") - seconds(30)
+# print(glue::glue("  Cutoff: {cutoff}"))
+read_csv("no-longer.csv") %>% select(1:2) -> no
+d <- make_d_c(cutoff - hours(2)) # go back to start of current games
+```
+
+```{r}
+d %>% 
+  rowwise() %>% 
+  mutate(thing = list(read_rds(value))) %>% 
+  unnest(thing) %>% 
+  select(-name, -value) %>% 
+  left_join(no, join_by(league)) %>% 
+  filter(is.na(info) | info != "no") %>% 
+  arrange(league, t1) %>% 
+  group_by(league, t1) %>% 
+  mutate(last_score = lag(score),
+         last_status = lag(status)) %>% 
+  filter(score != last_score |
+        ((status == "FT") & (last_status != "FT"))) %>%
+  ungroup() %>% 
+  select(info, time, ko, status, t1, score, t2, mtime) %>% 
+  mutate(is_new = ifelse(mtime >= cutoff, "new", "")) %>% 
+  select(-mtime) %>% View()
+
+```
+
+I need to go back further to get everything in current games, like back another 2 hours (check)
+
+above is way to keep mtimes along with everything else
+
+now try to keep this consistent with original coding
+
+

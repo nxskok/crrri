@@ -1,4 +1,5 @@
 ---
+title: "`r format(Sys.time(), format = '%H:%M %d %b')`"
 format: 
   html:
     page-layout: full
@@ -18,7 +19,8 @@ source("888_changes_b_functions.R")
 ```
 
 ```{bash}
-scp ken@megan-laptop.local:projects/crrri/888/*.rds 888
+#| echo: false
+rsync -a  ken@megan-laptop.local:projects/crrri/888/*.rds 888
 ```
 
 
@@ -33,7 +35,7 @@ d <- make_d_c(cutoff)
 d %>% pull(value) -> file_list
 d %>% pull(mtime) -> mtimes
 d %>% summarize(max = max(mtime)) %>% pull(max) -> last_get
-my_url <- "~/Documents/r-projects/world-football/predictions.rds"
+my_url <- "~/r-projects/world-football/predictions.rds"
 nowtime <- now()
 predictions <- read_rds(my_url)
 predictions2 <- make_current_predictions(predictions, nowtime)
@@ -96,6 +98,23 @@ display_non_matched_leagues(d1)
 #| error: true
 #| echo: false
 display_d1a(d1a) # this will throw an error in the likely case that there is none
+```
+
+## Ongoing games
+
+```{r}
+#| echo: false
+latest_time <- file_list[(length(file_list))]
+latest_time %>% read_rds() %>% 
+  left_join(no, join_by(league)) %>% 
+  filter(!is.na(info) & info != "no") %>% 
+  filter(status != "FT") %>% 
+  select(info, ko:t2) %>% 
+  arrange(ko) %>% 
+  kbl() 
+# %>% 
+#   kable_minimal(full_width = FALSE)
+  
 ```
 
 

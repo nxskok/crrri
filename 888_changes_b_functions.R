@@ -33,13 +33,15 @@ make_like <- function(score, x2, x1, x0) {
     separate_wider_delim(score, names = c("s1", "s2"), delim = "-",
                          too_few = "align_start") %>%
     mutate(across(starts_with("s"), as.numeric)) %>%
+    mutate(mx = pmax(x2, x1, x0)) %>%
     mutate(ans = case_when(
-      s1 > s2   ~ x2,
-      s1 == s2  ~ x1,
-      s1 < s2   ~ x0,
+      s1 > s2   ~ log(mx/x2),
+      s1 == s2  ~ log(mx/x1),
+      s1 < s2   ~ log(mx/x0),
       .default = -1
     )) %>%
-    pull(ans)
+    pull(ans) -> ax
+  round(ax*100)
 }
 
 
@@ -134,7 +136,7 @@ display_d1a <- function(d1a) {
   if (nrow(d1a) == 0) return("No rows to display")
 
   d1a %>%
-    select(-key, -mtch) %>%
+    select(league, time, status, t1, score, t2) %>%
     kbl() %>%
     collapse_rows(columns = c(4, 6), valign = "top")
 }
@@ -166,9 +168,12 @@ display_matched_games <- function(d1, no) {
     mutate(t1 = ifelse(mtch, t1, NA)) %>%
     mutate(t2 = ifelse(mtch, t2, NA)) %>%
     select(-info, -mtch) %>%
+    select(-league) %>%
     # select(-squawk) %>%
+    select(fname:`0`) %>%  # I don't know where the extra columns are coming from
     kbl() %>%
-    collapse_rows(columns = c(1, 2, 4, 7, 11), valign = "top")
+    column_spec(10, bold = TRUE) %>%
+  collapse_rows(columns = c(1, 2, 4, 7), valign = "top")
 
 }
 
