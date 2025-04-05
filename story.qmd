@@ -42,14 +42,12 @@ d %>%
   ungroup() %>% 
   select(info, time, ko, status, t1, score, t2, mtime) %>% 
   mutate(is_new = ifelse(mtime >= cutoff, "new", "")) %>% 
-  select(-mtime) %>% View()
-
+  select(-mtime) -> d_all
+d_all
+d_all %>% 
+  group_by()
 ```
 
-I need to go back further to get everything in current games, like back another 2 hours (check)
 
-above is way to keep mtimes along with everything else
-
-now try to keep this consistent with original coding
 
 

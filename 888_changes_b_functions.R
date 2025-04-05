@@ -113,6 +113,32 @@ make_latest_scores_c <- function(file_list, mtimes) {
     mutate(key = str_c(t1, " - ", t2))
 }
 
+make_latest_scores_d <- function(d) {
+  d %>%
+    rowwise() %>%
+    mutate(thing = list(read_rds(value))) %>%
+    unnest(thing) %>%
+    select(-name, -value) %>%
+    left_join(no, join_by(league)) %>%
+    filter(is.na(info) | info != "no") %>%
+    arrange(league, t1) %>%
+    group_by(league, t1) %>%
+    mutate(last_score = lag(score),
+           last_status = lag(status)) %>%
+    filter(score != last_score |
+             ((status == "FT") & (last_status != "FT"))) %>%
+    ungroup() %>%
+    select(info, time, status, t1, score, t2, mtime, league) %>%
+    mutate(is_new = ifelse(mtime >= cutoff, "new", "")) %>%
+    select(-mtime) %>%
+    arrange(info) %>%
+    mutate(key = str_c(t1, " - ", t2)) -> d_all
+  d_all %>% group_by(league, t1) %>%
+    summarize(has_new = any(is_new == "new")) -> d_summ
+  d_all %>% left_join(d_summ, by = c("league", "t1")) %>%
+    filter(has_new) %>%
+    select(-has_new)
+}
 
 make_d1a <- function(latest_scores) {
   latest_scores %>%
@@ -176,6 +202,45 @@ display_matched_games <- function(d1, no) {
   collapse_rows(columns = c(1, 2, 4, 7), valign = "top")
 
 }
+
+display_matched_games_d <- function(d1, no) {
+
+  if (nrow(d1) ==0) return ("No games to report")
+
+  d1 %>%
+    filter(mtch) -> d11
+  if (nrow(d11) == 0) return("No matched games")
+  d11 %>%
+    mutate(like = make_like(score, `2`, `1`, `0`)) %>%
+    # filter(score0 == ppd_score) %>%
+    select(fname,
+           ko = ko,
+           time = time,
+           t1 = t1.y,
+           r1,
+           r2,
+           t2 = t2.y,
+           st = status,
+           score,
+           is_new,
+           like,
+           league,
+           `2`, `1`, `0`,
+           mtch) %>%
+    left_join(no, join_by(league)) %>%
+    mutate(t1 = ifelse(mtch, t1, NA)) %>%
+    mutate(t2 = ifelse(mtch, t2, NA)) %>%
+    select(-info, -mtch) %>%
+    select(-league) %>%
+    # select(-squawk) %>%
+    select(fname:`0`) %>%  # I don't know where the extra columns are coming from
+    kbl() %>%
+    column_spec(10, bold = TRUE) %>%
+    column_spec(11, bold = TRUE) %>%
+    collapse_rows(columns = c(1, 2, 4, 7), valign = "top")
+
+}
+
 
 display_non_matched_games <- function(d1) {
   if (nrow(d1) ==0) return (NULL)
